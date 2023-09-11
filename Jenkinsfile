@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        TF_VAR_aws_access_key = credentials('AKIA27E4XXYWENRNAE62')
-        TF_VAR_aws_secret_key = credentials('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')
+        TF_VAR_aws_access_key = ('AKIA27E4XXYWENRNAE62')
+        TF_VAR_aws_secret_key = ('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')
     }
 
     stages {
