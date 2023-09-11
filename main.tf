@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-1"  
+  region = "us-east-2a"  
 }
 
 resource "aws_s3_bucket" "static_site" {
