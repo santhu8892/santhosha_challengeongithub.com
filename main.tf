@@ -3,18 +3,18 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "static_site" {
-  bucket = "santhu_bucket"
+  bucket = "tf-state-98ftyyyy"
   acl    = "public-read"
 }
 
 resource "aws_security_group" "web" {
-  name_prefix = "web-html"
+  name_prefix = ""
 
   # Define security group rules (e.g., allow HTTP and HTTPS)
 }
 
 resource "aws_instance" "web_server" {
-  ami           = "ami-04b9e92b5572fa0d1"  
+  ami           = "ami-00eeedc4036573771"  
   instance_type = "t2.micro"  
 
  
@@ -34,14 +34,15 @@ resource "aws_lb" "web_lb" {
   internal           = false
   load_balancer_type = "application"
   enable_deletion_protection = false
-  subnets            = [aws_subnet.public_subnet.id]
+  subnets            = [subnet-0dbe6797d58649a43,subnet-0df820731e17c9390,subnet-0c423464d574ac275
+]
 
   enable_http2 = true
 
   enable_deletion_protection = false
 
   # Define security group for the ALB (allow HTTP and HTTPS)
-  security_groups = [aws_security_group.web.id]
+  security_groups = [default]
 }
 
 resource "aws_lb_target_group" "web_target_group" {
