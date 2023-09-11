@@ -1,6 +1,6 @@
 ---
 - name: Deploy Web Server
-  hosts: ec2_instance_private_ip  # Replace with the private IP of your EC2 instance
+  hosts: 172.31.10.35  # Replace with the private IP of your EC2 instance
   become: yes
 
   tasks:
