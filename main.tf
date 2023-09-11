@@ -39,7 +39,6 @@ resource "aws_lb" "web_lb" {
 
   enable_http2 = true
 
-  enable_deletion_protection = false
 
   # Define security group for the ALB (allow HTTP and HTTPS)
   security_groups = [default]
