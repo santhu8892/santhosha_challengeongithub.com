@@ -1,0 +1,37 @@
+---
+- name: Deploy Web Server
+  hosts: ec2_instance_private_ip  # Replace with the private IP of your EC2 instance
+  become: yes
+
+  tasks:
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+
+    - name: Install SSL support for Apache
+      apt:
+        name: apache2
+        state: present
+
+    - name: Generate Self-Signed SSL Certificate
+      command: openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/server.key -out /etc/ssl/certs/server.crt
+      args:
+        creates: /etc/ssl/private/server.key
+
+    - name: Configure Apache Virtual Host
+      template:
+        src: templates/apache_vhost.conf.j2
+        dest: /etc/apache2/sites-available/default-ssl.conf
+      notify:
+        - Restart Apache
+
+    - name: Enable SSL site
+      command: a2ensite default-ssl
+      notify:
+        - Restart Apache
+
+    - name: Restart Apache
+      service:
+        name: apache2
+        state: restarted
